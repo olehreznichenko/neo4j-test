@@ -1,0 +1,13 @@
+CREATE CONSTRAINT user_username_unique IF NOT EXISTS FOR (u:User) REQUIRE u.username IS UNIQUE;
+MERGE (alice:User { username: 'alice' }) ON CREATE SET alice.name = 'Alice', alice.age = 30;
+MERGE (bob:User { username: 'bob' }) ON CREATE SET bob.name = 'Bob', bob.age = 25;
+MERGE (carol:User { username: 'carol' }) ON CREATE SET carol.name = 'Carol', carol.age = 27;
+MERGE (dave:User { username: 'dave' }) ON CREATE SET dave.name = 'Dave', dave.age = 22;
+MERGE (eve:User { username: 'eve' }) ON CREATE SET eve.name = 'Eve', eve.age = 35;
+MATCH (alice:User { username: 'alice' }), (bob:User {username: 'bob'}) MERGE (alice)-[:FOLLOWS]->(bob);
+MATCH (bob:User { username: 'bob' }), (carol:User {username: 'carol'}) MERGE (bob)-[:FOLLOWS]->(carol);
+MATCH (carol:User { username: 'carol' }), (dave:User {username: 'dave'}) MERGE (carol)-[:FOLLOWS]->(dave);
+MATCH (dave:User { username: 'dave' }), (eve:User {username: 'eve'}) MERGE (dave)-[:FOLLOWS]->(eve);
+MATCH (alice:User { username: 'alice' }), (carol:User {username: 'carol'}) MERGE (alice)-[:FOLLOWS]->(carol);
+MATCH (bob:User { username: 'bob' }), (eve:User {username: 'eve'}) MERGE (bob)-[:FOLLOWS]->(eve);
+MATCH (carol:User { username: 'carol' }), (alice:User {username: 'alice'}) MERGE (carol)-[:FOLLOWS]->(alice);

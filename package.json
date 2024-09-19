@@ -1,0 +1,21 @@
+{
+  "name": "neo4j-test",
+  "module": "./server/main.ts",
+  "type": "module",
+  "scripts": {
+    "docker:dev": "docker compose up -d",
+    "docker:stop": "docker compose down",
+    "dev": "bun --hot run ./server/main.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@trpc/server": "^11.0.0-rc.502",
+    "neo4j-driver": "^5.24.1",
+    "zod": "^3.23.8"
+  }
+}
